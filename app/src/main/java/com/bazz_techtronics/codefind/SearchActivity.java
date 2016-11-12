@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Toast;
 
 /**
  * Created by Nshidbaby on 9/20/2016.
@@ -19,6 +20,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
         handleIntent(getIntent());
     }
 
@@ -46,6 +48,8 @@ public class SearchActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             //use the query to search
+            Toast.makeText(getBaseContext(), "SearchActivity: " + query,
+                    Toast.LENGTH_LONG).show();
         }
     }
 }

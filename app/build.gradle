@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.bazz_techtronics.codefind"
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -21,7 +21,7 @@ android {
         }
     }
     buildTypes.each {
-        it.buildConfigField 'String', 'STACK_APPS_API_KEY', "\"3b1eb0180a4cf8954b02a8373ba815b3\""
+        it.buildConfigField 'String', 'STACK_APPS_API_KEY', "\"YOUR_OWN_API_KEY_HERE\""
     }
     compileOptions {
         targetCompatibility 1.8
@@ -31,7 +31,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
 }

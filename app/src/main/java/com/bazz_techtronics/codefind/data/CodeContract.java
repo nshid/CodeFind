@@ -22,12 +22,12 @@ public class CodeContract {
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
     // Possible paths (appended to base content URI for possible URI's)
-    // For instance, content://com.bazz_techtronics_codefind/weather/ is a valid path for
-    // looking at weather data. content://com.bazz_techtronics_codefind/givemeroot/ will fail,
+    // For instance, content://com.bazz_techtronics_codefind/code/ is a valid path for
+    // looking at code data. content://com.bazz_techtronics_codefind/givemeroot/ will fail,
     // as the ContentProvider hasn't been given any information on what to do with "givemeroot".
     // At least, let's hope not.  Don't be that dev, reader.  Don't be that dev.
-    public static final String PATH_WEATHER = "weather";
-    public static final String PATH_LOCATION = "location";
+    public static final String PATH_CODE = "code";
+    public static final String PATH_SEARCH = "search";
 
     // To make it easy to query for the exact date, we normalize all dates that go into
     // the database to the start of the the Julian day at UTC.
@@ -40,34 +40,34 @@ public class CodeContract {
     }
 
     /*
-        Inner class that defines the table contents of the location table
+        Inner class that defines the table contents of the search table
      */
     public static final class SearchEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_LOCATION).build();
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_SEARCH).build();
 
         public static final String CONTENT_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LOCATION;
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SEARCH;
         public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LOCATION;
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_CODE;
 
-        public static Uri buildLocationUri(long id) {
+        public static Uri buildSearchUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
 
-        public static final String TABLE_NAME = "location";
+        public static final String TABLE_NAME = "search";
 
-        // The location setting string is what will be sent to openweathermap
-        // as the location query.
-        public static final String COLUMN_LOCATION_SETTING = "location_setting";
+        // The search setting string is what will be sent to stackexchangeapi
+        // as the search query.
+        public static final String COLUMN_SEARCH_SETTING = "search_setting";
 
-        // Human readable location string, provided by the API. Because for styling,
+        // Human readable search string, provided by the API. Because for styling,
         // "Mountain View" is more recognizable than 94043.
         public static final String COLUMN_CITY_NAME = "city_name";
 
-        // In order to uniquely pinpoint the location on the map when we launch the
-        // map intent, we store the latitude and longitude as returned by openweathermap.
+        // In order to uniquely pinpoint the search on the map when we launch the
+        // map intent, we store the latitude and longitude as returned by stackexchangeapi.
         public static final String COLUMN_COORD_LAT = "coord_lat";
         public static final String COLUMN_COORD_LONG = "coord_long";
     }
@@ -76,23 +76,23 @@ public class CodeContract {
     public static final class CodeEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_WEATHER).build();
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_CODE).build();
 
         public static final String CONTENT_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_WEATHER;
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_CODE;
         public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_WEATHER;
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_CODE;
 
-        public static final String TABLE_NAME = "weather";
+        public static final String TABLE_NAME = "code";
 
-        // Column with the foreign key into the location table.
-        public static final String COLUMN_LOC_KEY = "location_id";
+        // Column with the foreign key into the search table.
+        public static final String COLUMN_SRC_KEY = "search_id";
         // Date, stored as long in milliseconds since the epoch
         public static final String COLUMN_DATE = "date";
-        // Weather id as returned by API, to identify the icon to be used
-        public static final String COLUMN_WEATHER_ID = "weather_id";
+        // Code id as returned by API, to identify the icon to be used
+        public static final String COLUMN_CODE_ID = "code_id";
 
-        // Short description and long description of the weather, as provided by API.
+        // Short description and long description of the code, as provided by API.
         // e.g "clear" vs "sky is clear".
         public static final String COLUMN_SHORT_DESC = "short_desc";
 
@@ -112,30 +112,30 @@ public class CodeContract {
         // Degrees are meteorological degrees (e.g, 0 is north, 180 is south).  Stored as floats.
         public static final String COLUMN_DEGREES = "degrees";
 
-        public static Uri buildWeatherUri(long id) {
+        public static Uri buildCodeUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
 
         /*
-            This is the buildWeatherLocation function
+            This is the buildCodeSearch function
          */
-        public static Uri buildWeatherLocation(String locationSetting) {
-            return CONTENT_URI.buildUpon().appendPath(locationSetting).build();
+        public static Uri buildCodeSearch(String searchSetting) {
+            return CONTENT_URI.buildUpon().appendPath(searchSetting).build();
         }
 
-        public static Uri buildWeatherLocationWithStartDate(
-                String locationSetting, long startDate) {
+        public static Uri buildCodeSearchWithStartDate(
+                String searchSetting, long startDate) {
             long normalizedDate = normalizeDate(startDate);
-            return CONTENT_URI.buildUpon().appendPath(locationSetting)
+            return CONTENT_URI.buildUpon().appendPath(searchSetting)
                     .appendQueryParameter(COLUMN_DATE, Long.toString(normalizedDate)).build();
         }
 
-        public static Uri buildWeatherLocationWithDate(String locationSetting, long date) {
-            return CONTENT_URI.buildUpon().appendPath(locationSetting)
+        public static Uri buildCodeSearchWithDate(String searchSetting, long date) {
+            return CONTENT_URI.buildUpon().appendPath(searchSetting)
                     .appendPath(Long.toString(normalizeDate(date))).build();
         }
 
-        public static String getLocationSettingFromUri(Uri uri) {
+        public static String getSearchSettingFromUri(Uri uri) {
             return uri.getPathSegments().get(1);
         }
 

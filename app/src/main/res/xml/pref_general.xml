@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <CheckBoxPreference
         android:title="@string/pref_enable_questions_label"
         android:key="@string/pref_enable_questions_key"
@@ -11,11 +10,17 @@
         android:summaryOn="@string/pref_enable_questions_true"
         android:defaultValue="@string/pref_enable_questions_default" />
 
-
     <CheckBoxPreference
         android:title="@string/pref_enable_comments_label"
         android:key="@string/pref_enable_comments_key"
         android:summaryOff="@string/pref_enable_comments_false"
         android:summaryOn="@string/pref_enable_comments_true"
         android:defaultValue="@string/pref_enable_comments_default" />
+
+    <Preference
+        android:title="@string/pref_clear_cache_label"
+        android:key="@string/pref_clear_cache_key"
+        android:summary="@string/pref_clear_cache_desc"
+        android:widgetLayout="@layout/pref_cache_button" />
+
 </PreferenceScreen>

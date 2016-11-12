@@ -1,22 +1,19 @@
 package com.bazz_techtronics.codefind;
 
-import android.app.SearchManager;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.View;
-
-import com.bazz_techtronics.codefind.sync.CodeFindSyncAdapter;
+import android.widget.SearchView;
 
 public class MainActivity extends AppCompatActivity {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private static final String TOPICFRAGMENT_TAG = "TFTAG";
+    private static final String SEARCHFRAGMENT_TAG = "SFTAG";
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
 
     private boolean mThreePane;
@@ -26,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (findViewById(R.id.code_topic_container) != null &&
+        if (findViewById(R.id.code_search_container) != null &&
                 findViewById(R.id.code_detail_container) != null) {
             // The detail container view will be present only in the large-screen layouts
             // (res/layout-sw600dp). If this view is present, then the activity should be
@@ -37,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             // fragment transaction.
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.code_topic_container, new TopicFragment(), TOPICFRAGMENT_TAG)
+                        .replace(R.id.code_search_container, new SearchResultsFragment(), SEARCHFRAGMENT_TAG)
                         .commit();
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.code_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
@@ -47,11 +44,12 @@ public class MainActivity extends AppCompatActivity {
             mThreePane = false;
         }
 
-        SearchFragment searchFragment =  ((SearchFragment)getSupportFragmentManager()
+        SearchFragment searchFragment = ((SearchFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_search));
-        searchFragment.setUseTodayLayout(!mThreePane);
+        searchFragment.setUseNormalLayout(!mThreePane);
 
-        CodeFindSyncAdapter.initializeSyncAdapter(this);
+        /*** REMOVE COMMENTS AFTER CONFIGURATION ***/
+        //CodeFindSyncAdapter.initializeSyncAdapter(this);
 
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
@@ -60,24 +58,24 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Searching source code repositories...", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                SearchView searchView = (SearchView) findViewById(R.id.searchview_search);
+                String searchQuery = searchView.getQuery().toString().trim();
+                if (searchQuery != null && !searchQuery.isEmpty()) {
+                    Snackbar.make(view, "Searching source code repositories...for " + searchQuery, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class)
+                            .putExtra(Intent.EXTRA_TEXT, searchQuery);
+                    startActivity(intent);
+                }
             }
         });
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.menu_search).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
+        getMenuInflater().inflate(R.menu.menu_minimal, menu);
 
         return true;
     }
