@@ -1,0 +1,62 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:fontFamily="sans-serif-condensed"
+            android:id="@+id/textview_query"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:background="@drawable/border_white_on_blk" />
+
+        <TextView
+            android:fontFamily="sans-serif-condensed"
+            android:id="@+id/textview_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:foregroundGravity="center"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_below="@+id/textview_query"
+            android:background="@drawable/border_light_grey_on_blk" />
+
+        <TextView
+            android:fontFamily="sans-serif-condensed"
+            android:id="@+id/textview_tags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_below="@+id/textview_score" />
+
+
+        <TextView
+            android:id="@+id/textview_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="6dp"
+            android:divider="@color/codefind_light_grey"
+            android:dividerHeight="0.1dp"
+            android:layout_below="@+id/textview_tags"
+            android:background="@drawable/border_light_grey_on_wht" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,35 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bazz_techtronics.codefind.SearchResultsFragment">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.bazz_techtronics.codefind.SearchResultsActivity">
+
+        <ImageView
+            android:id="@+id/imageview_title"
+            android:src="@drawable/ic_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/app_logo" />
+
+        <ListView
+            style="@style/SearchListStyle"
+            android:id="@+id/listview_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="6dp"
+            android:divider="@color/codefind_light_grey"
+            android:dividerHeight="0.1dp"
+            android:layout_below="@+id/imageview_title"
+            android:background="@drawable/border_light_grey_on_blk" />
+
+    </RelativeLayout>
+</FrameLayout>

@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bazz_techtronics.codefind.SearchFragment">
+
+    <SearchView
+        android:id="@+id/searchview_search"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:iconifiedByDefault="true"
+        android:layout_gravity="center"
+        android:queryHint="Search here"
+        android:background="@color/codefind_opaque_grey" />
+</FrameLayout>

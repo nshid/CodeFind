@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:divider="?android:attr/dividerHorizontal"
+    tools:context="com.bazz_techtronics.codefind.MainActivity">
+
+    <!--
+    This layout is a three-pane layout for the Items master/detail flow.
+    -->
+
+    <fragment
+        android:id="@+id/fragment_search"
+        android:name="com.bazz_techtronics.codefind.SearchFragment"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_weight="1"
+        tools:layout="@android:layout/list_content" />
+
+    <FrameLayout
+        android:id="@+id/code_search_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:layout_below="@+id/fragment_search" />
+
+    <FrameLayout
+        android:id="@+id/code_detail_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:layout_below="@+id/fragment_search"
+        android:layout_toLeftOf="@+id/code_search_container" />
+
+</RelativeLayout>

@@ -58,7 +58,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 
     // These indices are tied to SEARCH_COLUMNS.  If CODE_COLUMNS changes, these
     // must change.
-    static final int COL_COPE_ID = 0;
+    static final int COL_CODE_ID = 0;
     static final int COL_CODE_DATE = 1;
     static final int COL_CODE_DESC = 2;
     static final int COL_CODE_MAX_TEMP = 3;
