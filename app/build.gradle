@@ -21,7 +21,7 @@ android {
         }
     }
     buildTypes.each {
-        it.buildConfigField 'String', 'STACK_APPS_API_KEY', "\"YOUR_OWN_API_KEY_HERE\""
+        it.buildConfigField 'String', 'STACK_APPS_API_KEY', "\"3b1eb0180a4cf8954b02a8373ba815b3\""
     }
     compileOptions {
         targetCompatibility 1.8

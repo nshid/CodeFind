@@ -33,7 +33,7 @@ import java.util.List;
 public class FetchResponseTask extends AsyncTask<String, Void, List<Response>> {
 
     private final String LOG_TAG = FetchResponseTask.class.getSimpleName();
-    private final Integer MAX_RESULTS = 15; // max results to be returned
+    private final Integer MAX_RESULTS = 100; // max results to be returned
     private final Integer MAX_CACHE = 1024; // soft limit on cache entries
 
     private Cache qcache;
@@ -60,7 +60,7 @@ public class FetchResponseTask extends AsyncTask<String, Void, List<Response>> {
         this.searchComments = searchComments;
         this.searchQuestions = searchQuestions;
 
-        this.searchQueryURL = "http://api.stackexchange.com/2.2/search?order=desc&sort=activity&site=stackoverflow&filter=!DEQO3UFnYJE2Qb9r8*e3Byl07Dyn19dZfB1LrgOw7-8NUBNmCiu";
+        this.searchQueryURL = "http://api.stackexchange.com/2.2/search?pagesize=" + MAX_RESULTS + "&order=desc&sort=activity&site=stackoverflow&filter=!3yXvh9)eIQCFlEPJH";
 
         this.qcache = (Cache) Utility.retrieveCacheData(searchContext, "R_CACHE");
         if (qcache == null) {
@@ -181,7 +181,7 @@ public class FetchResponseTask extends AsyncTask<String, Void, List<Response>> {
             return null;
         }
 
-        String searchQueryStr = params[0].trim().replaceAll(" ", "%20");
+        String searchQueryStr = params[0].trim().replaceAll(" ", "+");
 
         // These two need to be declared outside the try/catch
         // so that they can be closed in the finally block.

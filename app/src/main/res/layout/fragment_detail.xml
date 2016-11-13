@@ -1,7 +1,12 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
+
+    <com.bazz_techtronics.codefind.view.ZoomView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <LinearLayout
         android:gravity="center_horizontal"
@@ -49,15 +54,17 @@
                 android:textSize="16sp"
                 android:layout_below="@+id/textview_score" />
 
-
-                <TextView
+                <com.bazz_techtronics.codefind.view.ExtendedTextView
                     android:id="@+id/textview_detail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="6dp"
                     android:divider="@color/codefind_light_grey"
                     android:dividerHeight="0.1dp"
+                    android:textIsSelectable="true"
+                    android:textColorHighlight="@color/codefind_dark_blue"
                     android:layout_below="@+id/textview_tags"
                     android:background="@drawable/border_light_grey_on_wht" />
         </LinearLayout>
-    </ScrollView>
+    </com.bazz_techtronics.codefind.view.ZoomView>
+</ScrollView>

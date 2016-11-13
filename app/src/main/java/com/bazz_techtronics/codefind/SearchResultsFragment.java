@@ -7,11 +7,11 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,15 +21,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.support.v7.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bazz_techtronics.codefind.sync.FetchResponseTask;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
-
-import com.bazz_techtronics.codefind.sync.FetchResponseTask;
 
 /**
  * Encapsulates fetching the code topics and displaying it as a {@link ListView} layout.
@@ -168,7 +167,7 @@ public class SearchResultsFragment extends Fragment {
             {
                 if (listView.getItemAtPosition(position) != null && mSearchQuestions.size() > 0) {
                     String selectedFromList = (listView.getItemAtPosition(position)).toString();
-                    Toast.makeText(getContext(), "You clicked: " + selectedFromList, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), Html.fromHtml(selectedFromList).toString(), Toast.LENGTH_LONG).show();
                     Snackbar.make(rootView, "Searching source code repositories...", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
 

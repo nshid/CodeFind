@@ -27,10 +27,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.bazz_techtronics.codefind.data.SquaredBackgroundSpan;
 import com.bazz_techtronics.codefind.data.Tuple;
+import com.bazz_techtronics.codefind.view.ExtendedTextView;
+import com.bazz_techtronics.codefind.view.SquaredBackgroundSpan;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -54,6 +56,11 @@ public class DetailFragment extends Fragment {
     private String mSearchTitle;
     private String mSearchStr;
 
+    private View mRootView;
+    private ScrollView mScrollView;
+
+    private Boolean beginViewLoad;
+
     private SharedPreferences.OnSharedPreferenceChangeListener settingsListener;
 
     public DetailFragment() {
@@ -62,6 +69,9 @@ public class DetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        beginViewLoad = true;
+
         setHasOptionsMenu(true);
     }
 
@@ -120,6 +130,8 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+
+        mRootView = rootView;
 
         // One the root view for the Fragment has been created, it's time to create
         // the ListView with some dummy data.
@@ -198,7 +210,7 @@ public class DetailFragment extends Fragment {
             tagTextView.setText(TextUtils.join(", ", mSearchTags));
         }
 
-        TextView textView = (TextView) rootView.findViewById(R.id.textview_detail);
+        ExtendedTextView textView = (ExtendedTextView) rootView.findViewById(R.id.textview_detail);
         textView.setMovementMethod(LinkMovementMethod.getInstance()); // allow clickable links
         if (textView != null) {
             mSearchSpanIndices = new ArrayList<>();
@@ -231,6 +243,9 @@ public class DetailFragment extends Fragment {
             }
             textView.setText(responseBuilder);
         }
+
+        mScrollView = (ScrollView) rootView.findViewById(R.id.scroll_detail);
+
         return rootView;
     }
 
@@ -277,6 +292,12 @@ public class DetailFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        if (beginViewLoad && mScrollView != null) {
+            beginViewLoad = false;
+            mScrollView.smoothScrollTo(0, mRootView.getTop());
+            mScrollView.requestFocus();
+        }
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         sharedPreferences.registerOnSharedPreferenceChangeListener(settingsListener);

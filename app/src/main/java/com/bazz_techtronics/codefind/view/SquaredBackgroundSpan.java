@@ -1,14 +1,14 @@
-package com.bazz_techtronics.codefind.data;
+package com.bazz_techtronics.codefind.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.Layout;
 import android.text.style.AlignmentSpan;
 import android.text.style.ReplacementSpan;
-import android.widget.GridLayout;
+
+import com.bazz_techtronics.codefind.data.Tuple;
 
 /**
  * Created by Nshidbaby on 11/9/2016.
