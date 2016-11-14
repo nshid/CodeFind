@@ -41,7 +41,7 @@ public class SquaredBackgroundSpan extends ReplacementSpan implements AlignmentS
 
     @Override
     public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, Paint paint) {
-        RectF rect = new RectF(x, top, x + measureText(paint, text, start, end), bottom);
+        RectF rect = new RectF(-(x * 2), top, (x * 2) + measureText(paint, text, start, end), bottom);
         if (backgroundColor != null) {
             paint.setColor((int) backgroundColor.getObj());
             if ((boolean) backgroundColor.getKey()) {
